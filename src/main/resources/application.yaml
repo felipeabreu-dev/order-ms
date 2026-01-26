@@ -1,3 +1,11 @@
 spring:
   application:
     name: orderms
+  datasource:
+    url: jdbc:postgresql://localhost:5432/app_db
+    username: postgres
+    password: postgres
+    driver-class-name:  org.postgresql.Driver
+  jpa:
+    ddl-auto: update
+    show-sql: true
