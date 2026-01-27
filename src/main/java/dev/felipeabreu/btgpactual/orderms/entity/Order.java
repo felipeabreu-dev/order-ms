@@ -19,7 +19,6 @@ import java.util.List;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long orderId;
 
     private Long clientId;
