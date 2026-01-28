@@ -1,9 +1,12 @@
 package dev.felipeabreu.btgpactual.orderms.service;
 
 import dev.felipeabreu.btgpactual.orderms.dto.OrderCreatedEvent;
+import dev.felipeabreu.btgpactual.orderms.dto.OrderResponse;
 import dev.felipeabreu.btgpactual.orderms.entity.Order;
 import dev.felipeabreu.btgpactual.orderms.entity.OrderItem;
 import dev.felipeabreu.btgpactual.orderms.repository.OrderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,6 +29,12 @@ public class OrderService {
         entity.setPrice(getPrice(event));
 
         repository.save(entity);
+    }
+
+    public Page<OrderResponse> findAllByCostumerId(Long clientId, PageRequest pageRequest) {
+        var orders = repository.findAllByClientId(clientId, pageRequest);
+
+        return orders.map(OrderResponse::fromEntity);
     }
 
     private BigDecimal getPrice(OrderCreatedEvent event) {
